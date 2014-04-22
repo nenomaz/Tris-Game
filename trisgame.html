@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tris Game</title>
+	<meta charset="UTF-8">
+	<style>
+		/* Style of the grid */
+		.trisgrid {
+			width:168px;
+			height:168px;
+			padding:0px;
+			border:1px solid black;
+			margin:3px;
+		}
+		/* Style of every grid's box */
+		.trisgrid>div {
+			/* Dimensioning and positioning properties */
+			width:50px;
+			height:50px;
+			padding:1px;
+			border:1px solid black;
+			margin:1px;
+			float:left;
+			/* Appearance properties */
+			
+		}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>
+		function computerTrisEngine() {
+			
+		}
+	</script>
+	<script>
+		$(document).ready(function(){
+			$("div > div").click(function(){
+				$(this).css("background-color","red");
+				computerTrisEngine();
+			});
+		});
+	</script>
+</head>
+<body>
+
+	<div class="trisgrid">
+		<div class="box00"></div>
+		<div class="box01"></div>
+		<div class="box02"></div>
+		<div class="box10"></div>
+		<div class="box11"></div>
+		<div class="box12"></div>
+		<div class="box20"></div>
+		<div class="box21"></div>
+		<div class="box22"></div>
+	</div>
+
+</body>
