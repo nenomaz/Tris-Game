@@ -22,20 +22,31 @@
 			margin:1px;
 			float:left;
 			/* Appearance properties */
-			
+			text-align:center;
+			font:40px sans-serif;
 		}
 	</style>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script>
-		function computerTrisEngine() {
+		var trisgrid = new Array();
+		function computerTrisEngine(box) {
 			
 		}
 	</script>
 	<script>
 		$(document).ready(function(){
 			$("div > div").click(function(){
-				$(this).css("background-color","red");
-				computerTrisEngine();
+				// Get box index string
+				var boxIndex = $(this).attr("class");
+				// Get box index number
+				
+				// If box with this index is empty, thus undefined
+				
+					// Then fill it with the user's token
+					$(this).html("X");
+					// Call the computerTrisEngine()
+					computerTrisEngine($(this).attr("class"));
+				// Else do nothing
 			});
 		});
 	</script>
@@ -43,15 +54,15 @@
 <body>
 
 	<div class="trisgrid">
-		<div class="box00"></div>
-		<div class="box01"></div>
-		<div class="box02"></div>
-		<div class="box10"></div>
-		<div class="box11"></div>
-		<div class="box12"></div>
-		<div class="box20"></div>
-		<div class="box21"></div>
-		<div class="box22"></div>
+		<div class="box0"></div>
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<div class="box3"></div>
+		<div class="box4"></div>
+		<div class="box5"></div>
+		<div class="box6"></div>
+		<div class="box7"></div>
+		<div class="box8"></div>
 	</div>
 
 </body>
