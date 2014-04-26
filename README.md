@@ -24,3 +24,10 @@ The user owns the "X" Token, the computer engine the "O" token.
 - The JQuery Event Action will fill the box with the user's token if the box is empty, if true next call a computer engine method that exam the grid situation and return the index of box to be filled, finally with this index the sub-method will fill the corresponding box.
 
 ONE MIND: during the engine elaboration the other boxes events mustn't be on, otherwise will be returned an unexpected result.
+
+THE COMPUTER ENGINE METHOD-ALGORITHM
+This method should contain an algorithm that studies the tris grid situation and react returning the index of the box to be filled. Here is a minimal example in natural language:
+- The computer, if can, performs a tris;
+- Else, checks if the user's going to do tris, if true the box to be filled is what blocks the tris
+- Else if there's almost one computer token, the nearest to it will be filled with aim to perform a bis, so next may occur a tris if the user doesn't block the bis;
+- Else, fills any box

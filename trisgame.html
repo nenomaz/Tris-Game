@@ -3,6 +3,7 @@
 <head>
 	<title>Tris Game</title>
 	<meta charset="UTF-8">
+	<!-- CSS -->
 	<style>
 		/* Style of the grid */
 		.trisgrid {
@@ -26,27 +27,36 @@
 			font:40px sans-serif;
 		}
 	</style>
+	<!-- JQuery -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script>
-		var trisgrid = new Array();
+		var userToken = "X", computerToken = "O";
+		var trisGrid = new Array();
 		function computerTrisEngine(box) {
+			
+		}
+		function isThereTris(token) {
 			
 		}
 	</script>
 	<script>
 		$(document).ready(function(){
 			$("div > div").click(function(){
-				// Get box index string
-				var boxIndex = $(this).attr("class");
-				// Get box index number
-				
-				// If box with this index is empty, thus undefined
-				
-					// Then fill it with the user's token
-					$(this).html("X");
-					// Call the computerTrisEngine()
-					computerTrisEngine($(this).attr("class"));
-				// Else do nothing
+				var boxIndexString = $(this).attr("class");
+				var boxIndex = boxIndexString[3];
+				if (trisGrid[boxIndex] == undefined) {
+					$(this).html(userToken);
+					trisGrid[boxIndex] = userToken;
+					if (isThereTris(userToken) == true) {
+						alert("Tris");
+						// Conclude the game
+						// Declare the Winner
+						// Block the click events
+					}
+					else {
+						computerTrisEngine($(this).attr("class"));
+					}
+				}
 			});
 		});
 	</script>
