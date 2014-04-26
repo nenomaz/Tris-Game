@@ -30,5 +30,5 @@ THE COMPUTER ENGINE METHOD-ALGORITHM
 This method should contain an algorithm that studies the tris grid situation and react returning the index of the box to be filled. Here is a minimal example in natural language:
 - The computer, if can, performs a tris;
 - Else, checks if the user's going to do tris, if true the box to be filled is what blocks the tris
-- Else if there's almost one computer token, the nearest to it will be filled with aim to perform a bis, so next may occur a tris if the user doesn't block the bis;
+- Else if there's at least one computer token, the nearest to it will be filled with aim to perform a bis, so next may occur a tris if the user doesn't block the bis;
 - Else, fills any box
