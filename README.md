@@ -23,4 +23,4 @@ The user owns the "X" Token, the computer engine the "O" token.
 - When the user click on a BOX, Jquery Event Action will be triggered
 - The JQuery Event Action will fill the box with the user's token if the box is empty, if true next call a computer engine method that exam the grid situation and return the index of box to be filled, finally with this index the sub-method will fill the corresponding box.
 
-ONE MIND: during the engine elaboration the other boxes events must be off, otherwise will be returned an unexpected result.
+ONE MIND: during the engine elaboration the other boxes events mustn't be on, otherwise will be returned an unexpected result.
