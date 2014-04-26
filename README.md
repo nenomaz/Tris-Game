@@ -26,6 +26,7 @@ The user owns the "X" Token, the computer engine the "O" token.
 ONE MIND: during the engine elaboration the other boxes events mustn't be on, otherwise will be returned an unexpected result.
 
 THE COMPUTER ENGINE METHOD-ALGORITHM
+
 This method should contain an algorithm that studies the tris grid situation and react returning the index of the box to be filled. Here is a minimal example in natural language:
 - The computer, if can, performs a tris;
 - Else, checks if the user's going to do tris, if true the box to be filled is what blocks the tris
