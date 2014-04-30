@@ -21,7 +21,7 @@ The user owns the "X" Token, the computer engine the "O" token.
 
 - The GRID consists of a div element, each BOX is a child div of the grid
 - When the user click on a BOX, Jquery Event Action will be triggered
-- The JQuery Event Action will fill the box with the user's token if the box is empty, if true next call a computer engine method that exam the grid situation and return the index of box to be filled, finally with this index the sub-method will fill the corresponding box.
+- The JQuery Event Action will fill the box with the user's token if the box is empty, if true next call a method that checks if the user has performed a tris, if true the game will be closed and the winner declared! Else, a computer engine method will be called that exams the grid situation and returns the index of box to be filled, finally with this index the sub-method will fill the corresponding box.
 
 ONE MIND: during the engine elaboration the other boxes events mustn't be on, otherwise will be returned an unexpected result.
 
@@ -32,3 +32,8 @@ This method should contain an algorithm that studies the tris grid situation and
 - Else, checks if the user's going to do tris, if true the box to be filled is what blocks the tris
 - Else if there's at least one computer token, the nearest to it will be filled with aim to perform a bis, so next may occur a tris if the user doesn't block the bis;
 - Else, fills any box
+
+But for now the method will return a casual box to be filled.
+
+THE METHOD THAT CHECKS IF THERE'S A TRIS
+This method in the file trisgame.html is called "isThereTris(token)", "token" is the token which the method checks.
