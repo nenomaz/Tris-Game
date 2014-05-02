@@ -36,10 +36,16 @@
 		var combinationsOfTrisBoxes = [ [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6] ];
 		function computerEngine() {
 			// Fill the first box that's empty
-			// IF there is a tris with computer token
-				// Return true
-			// ELSE
-				// Return the index of the filled box
+			var aBoxIsFilled = false;
+			for (var i = 0; i<9; i++) {
+				if (trisGrid[i] == undefined) {
+					fillABox(computerToken,i,"box"+i);
+					aBoxIsFilled = i;
+					i = 9;
+				}
+			}
+			if (isThereTris(computerToken) == true)
+				return true;
 		}
 		function isThereTris(token) {
 			for (var i = 0; i<combinationsOfTrisBoxes.length; i++) {
@@ -48,27 +54,32 @@
 				}
 			}
 		}
+		function fillABox(token,boxIndex,boxIndexString) {
+			$("div > ." + boxIndexString).html(token);
+			trisGrid[boxIndex] = token;
+		}
 	</script>
 	<!-- JQuery TRIS ENGINE -->
 	<script>
 		$(document).ready(function(){
+		var hasHappenedATris = false;
 			$("div > div").click(function(){
-				var boxIndexString = $(this).attr("class");
-				var boxIndex = boxIndexString[3];
-				if (trisGrid[boxIndex] == undefined) {
-					$(this).html(userToken);
-					trisGrid[boxIndex] = userToken;
-					var isThereATris = isThereTris(userToken);
-					if (isThereATris == true) {
-						alert("You have Win!");
-						// Conclude the game blocking click events
-					}
-					else {
-						// Call the computer engine method
-						// IF the returning value is true
-							// Alert: You have loose!
-						// ELSE IF is a number
-							// Fill the relative box in html grid
+				if (hasHappenedATris == false) {
+					var boxIndexString = $(this).attr("class");
+					var boxIndex = boxIndexString[3];
+					if (trisGrid[boxIndex] == undefined) {
+						fillABox(userToken,boxIndex,boxIndexString);
+						var isThereATris = isThereTris(userToken);
+						if (isThereATris == true) {
+							alert("You Win!");
+							hasHappenedATris = true;
+						}
+						else {
+							if (computerEngine() == true) {
+								alert("You lost!");
+								hasHappenedATris = true;
+							}
+						}
 					}
 				}
 			});
