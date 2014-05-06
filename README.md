@@ -38,3 +38,13 @@ But for now the method will return a casual box to be filled.
 THE METHOD THAT CHECKS IF THERE'S A TRIS
 
 This method in the file trisgame.html is called "isThereTris(token)", "token" is the token which the method checks.
+
+##########
+
+NEW TARGETS TO REACH
+
+- Add the possibility to choose the token for the user and for the computer
+- Add the button to restart/reset the game
+- To allow multiple tris grids on the page, thus multiple tris round-games, just convert the code to OOP, so for each game/round there will be a properly object instance.
+- Each user can play with a name and an e-mail to race with any others, his score will be stored in a ScoreTable!
+- It would be cool if it's possible to play with another user from another pc or with the same pc playing in turn!
