@@ -49,7 +49,6 @@
 			return;
 		}
 
-
 		function checkTris(name) {
 			var token = charToken[name];
 			for (var i = 0; i<combinationsOfTrisBoxes.length; i++) {
@@ -65,11 +64,16 @@
 			$("div > ." + boxIndexString).html(token);
 			trisGrid[boxIndex] = token;
 		}
+		function resetGame() {
+			$("div[class^='box']").text("");
+			endGame = false;
+			trisGrid = [];
+		}
 	</script>
 	<!-- JQuery TRIS ENGINE -->
 	<script>
 		$(document).ready(function(){
-			$("div > div").click(function(){
+			$("div.trisgrid > div").click(function(){
 				if (endGame == false) {
 					var boxIndexString = $(this).attr("class");
 					var boxIndex = boxIndexString[3];
@@ -82,11 +86,26 @@
 					}
 				}
 			});
+
+			$("#pctoken").on("change", function() {
+				charToken[userName] = $(this).val();
+			});
 		});
 	</script>
 </head>
 <body>
-
+	<div>
+		<table>
+			<tr>
+				<td>User token</td>
+				<td><input type="text" id="utoken" maxlength="1" value="X" /></td>
+			</tr>
+			<tr>
+				<td>PC token</td>
+				<td><input type="text" id="pctoken" maxlength="1" value="O" /></td>
+			</tr>
+		</table>
+	</div>
 	<div class="trisgrid">
 		<div class="box0"></div>
 		<div class="box1"></div>
@@ -98,7 +117,7 @@
 		<div class="box7"></div>
 		<div class="box8"></div>
 	</div>
-
+	<a href="javascript:void(0);" onclick="javascript:resetGame();">New Game</a>
 </body>
 
 </html>
