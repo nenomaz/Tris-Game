@@ -41,10 +41,8 @@
 		function computerEngine() {
 			// Fill the first box that's empty
 			for (var i = 0; i<9; i++) {
-				if (trisGrid[i] == undefined) {
-					fillABox(computerName,i,"box"+i);
+				if (fillABox(computerName,i,"box"+i))
 					break;
-				}
 			}
 			return;
 		}
@@ -60,9 +58,14 @@
 			}
 		}
 		function fillABox(name,boxIndex,boxIndexString) {
-			var token = charToken[name];
-			$("div > ." + boxIndexString).html(token);
-			trisGrid[boxIndex] = token;
+			if (trisGrid[boxIndex] == undefined) {
+				var token = charToken[name];
+				$("div > ." + boxIndexString).html(token);
+				trisGrid[boxIndex] = token;
+				return true;
+			}
+			else
+				return false;
 		}
 		function resetGame() {
 			$("div[class^='box']").text("");
@@ -77,8 +80,7 @@
 				if (endGame == false) {
 					var boxIndexString = $(this).attr("class");
 					var boxIndex = boxIndexString[3];
-					if (trisGrid[boxIndex] == undefined) {
-						fillABox(userName,boxIndex,boxIndexString);
+					if (fillABox(userName,boxIndex,boxIndexString)) {
 						if (!checkTris(userName)) {
 							computerEngine();
 							checkTris(computerName);
