@@ -37,20 +37,40 @@
 		charToken[computerName] = "0";
 
 		var trisGrid = new Array();
-		var combinationsOfTrisBoxes = [ [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6] ];
+		var combinationsOfThreeBoxes = [ [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6] ];
+		
+		// General functions, used outside to: start, reset the game and playing it
+		
 		function computerEngine() {
-			// Fill the first box that's empty
-			for (var i = 0; i<9; i++) {
-				if (fillABox(computerName,i,"box"+i))
-					break;
+			var almostTrisByComputer = getAnAlmostTris(computerName), almostTrisByUser = getAnAlmostTris(userName);
+			// IF there's an ALMOST_TRIS by the C
+				// C fill the free box
+			if (almostTrisByComputer[0] == true)
+				fillABox(computerName,almostTrisByComputer[1],"box"+almostTrisByComputer[1]);
+			// ELSE IF there's an ALMOST_TRIS by the U
+				// C fill the free box
+			else if (almostTrisByUser[0] == true) {
+				fillABox(computerName,almostTrisByUser[1],"box"+almostTrisByUser[1]);
 			}
-			return;
+			// ELSE IF there's an ALMOST_BIS by the C
+			
+				// C fill one of the two free boxes
+			// Else
+				// C chooses a casual box to be filled
+			else {
+				for (var i = 0; i < 9; i++) {
+					if (trisGrid[i] === undefined) {
+						fillABox(computerName,i,"box"+i);
+						i = 9;
+					}
+				}
+			}
 		}
 
 		function checkTris(name) {
 			var token = charToken[name];
-			for (var i = 0; i<combinationsOfTrisBoxes.length; i++) {
-				if (trisGrid[combinationsOfTrisBoxes[i][0]] == token && trisGrid[combinationsOfTrisBoxes[i][1]] == token && trisGrid[combinationsOfTrisBoxes[i][2]] == token) {
+			for (var i = 0; i<combinationsOfThreeBoxes.length; i++) {
+				if (trisGrid[combinationsOfThreeBoxes[i][0]] == token && trisGrid[combinationsOfThreeBoxes[i][1]] == token && trisGrid[combinationsOfThreeBoxes[i][2]] == token) {
 					endGame = true;
 					alert(name + " win");
 					return true;
@@ -71,6 +91,65 @@
 			$("div[class^='box']").text("");
 			endGame = false;
 			trisGrid = [];
+		}
+
+		// Specific functions, that are Helping for General Functions above
+
+		/*
+			
+		*/
+		function getAnAlmostTris(playerName) {
+			// For each combination of three boxes
+			for (var i = 0; i < combinationsOfThreeBoxes.length; i++) {
+				// IF it is an AlmostTris
+				var almostTris = isAnAlmostTris(combinationsOfThreeBoxes[i],playerName);
+				if (almostTris[0] == true) {
+					// Return
+					almostTris[1] = combinationsOfThreeBoxes[i][almostTris[1]];
+					return almostTris;
+				}
+			}
+			return [false, undefined];
+		}
+		
+		/*
+		
+		*/
+		function isAnAlmostTris(combinationOfThreeBoxes,playerName) {
+			// IF box1 and box2 are filled and box3 is empty
+			// 	Return true and index as 3
+			var token = charToken[playerName];
+			if (trisGrid[combinationOfThreeBoxes[0]] === token && trisGrid[combinationOfThreeBoxes[1]] === token && trisGrid[combinationOfThreeBoxes[2]] === undefined)
+				return [true, 2];
+			// IF box1 and box3 are filled and box2 is empty
+			// 	Return true and index as 2
+			if (trisGrid[combinationOfThreeBoxes[0]] === token && trisGrid[combinationOfThreeBoxes[2]] === token && trisGrid[combinationOfThreeBoxes[1]] === undefined)
+				return [true, 1];
+			// IF box2 and box3 are filled and box1 is empty
+			// 	Return true and index as 1
+			if (trisGrid[combinationOfThreeBoxes[1]] === token && trisGrid[combinationOfThreeBoxes[2]] === token && trisGrid[combinationOfThreeBoxes[0]] === undefined)
+				return [true, 0];
+			// ELSE
+			//  Return false
+			else
+				return [false, undefined];
+		}
+
+		function getAnAlmostBis(playerName) {
+			// FOR each combination of three boxes
+				// IF it is an almostBis
+					// Return the indexes of the other two free boxes
+		}
+
+		function isAnAlmostBis(combinationOfThreeBoxes,playerName) {
+			// IF box1 is filled and the other two are free
+				// Return true and index as 0
+			// IF box2 is filled and the other two are free
+				// Return true and index as 1
+			// IF box3 is filled and the other two are free
+				// Return true and index as 2
+			// ELSE
+				// Return false and index as undefined
 		}
 	</script>
 	<!-- JQuery TRIS ENGINE -->

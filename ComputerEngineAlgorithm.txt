@@ -4,13 +4,16 @@ THE COMPUTER ENGINE ALGORITHM
 The Highest level algorithm
 ----------------------------
 
-* The computer is indicated by simbol "C" and the user with "U"
+* An ALMOST_TRIS consists of a combination of three consecutive boxes in which two boxes are filled by the same token and the consecutive is free, so that filling this empty box with the same token will be realized a TRIS!
+* An ALMOST_BIS is a combination of three consecutive boxes in which one box is filled by a token and the other two are free, so that filling one of them is realized an ALMOST_TRIS, and next probably a TRIS.
+* Simbol "C" refers to the Computer
+* Simbol "U" refers to the User
 
-If C can realize a tris
+If C can realize a TRIS
 	C do it
-Else if the U has performed a bis
+Else if the U has performed a ALMOST_TRIS
 	C block it
-Else if C can do a bis
+Else if C can do a ALMOST_TRIS
 	C do it
 Else
 	C chooses a casual box to be filled
@@ -19,4 +22,28 @@ Else
 The second level algorithm
 ---------------------------
 
+If C has a TRIS
+	C fill the missing box to realize a tris
+Else if U has an ALMOST_TRIS
+	C fill the free box
+Else if C can do an ALMOST_TRIS (therefore almost one box filled in a tris combination in which the other two adjacent boxes are free)
+	C fill one of the free boxes
+Else
+	C chooses a casual box to be filled
 
+-------------------------------------------
+Algorithm Implementation - Javascript code
+-------------------------------------------
+
+* A variable in the javascript code must contains all possible combinations of three boxes in the grid, with which it's possible check if there's a tris combination, an almost tris, or an almost bis.
+In this case, it is a bidimensional array, therefore each element is still an array, which contains a unique combination of three boxes.
+This variable, in this case, is called combinationsOfThreeBoxes.
+
+IF there's an ALMOST_TRIS by the C
+	C fill the free box
+ELSE IF there's an ALMOST_TRIS by the U
+	C fill the free box
+ELSE IF there's an ALMOST_BIS by the C
+	C fill one of the two free boxes
+Else
+	C chooses a casual box to be filled

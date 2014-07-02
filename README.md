@@ -40,9 +40,12 @@ This method should contain an algorithm that studies the tris grid situation and
 
 But for now the method will return a casual box to be filled.
 
-### THE METHOD THAT CHECKS IF THERE'S A TRIS
+### ACTUAL STATE
 
-This method in the file trisgame.html is called "isThereTris(token)", "token" is the token which the method checks.
+* The computer engine algorithm implementation is almost complete!
+* Documentation must be completed
+* A complete test must be done
+* Code must be converted in OOP (Object Oriented Paradigm)
 
 ### NEW TARGETS TO REACH
 
