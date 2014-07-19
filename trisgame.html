@@ -1,204 +1,213 @@
 <html>
 <head>
-	<title>Tris Game</title>
-	<meta charset="UTF-8">
-	<!-- CSS -->
-	<style>
-		/* Style of the grid */
-		.trisgrid {
-			width:168px;
-			height:168px;
-			padding:0px;
-			border:1px solid black;
-			margin:3px;
-		}
-		/* Style of every grid's box */
-		.trisgrid>div {
-			/* Dimensioning and positioning properties */
-			width:50px;
-			height:50px;
-			padding:1px;
-			border:1px solid black;
-			margin:1px;
-			float:left;
-			/* Appearance properties */
-			text-align:center;
-			font:40px sans-serif;
-		}
-	</style>
-	<!-- JQuery  -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<!-- JQuery functions and variables -->
-	<script>
-		var endGame = false;
-		var userName = "user", computerName = "PC";
-		var charToken = [];
-		charToken[userName] = "X";
-		charToken[computerName] = "0";
+    
+    <title>Tris Game</title>
+    <meta charset="UTF-8">
+    
+    <!-- CSS -->
+    <style>
+        /* Style of the grid */
+        .trisgrid {
+            width:168px;
+            height:168px;
+            padding:0px;
+            border:1px solid black;
+            margin:3px;
+        }
+        /* Style of every grid's box */
+        .trisgrid>div {
+            /* Dimensioning and positioning properties */
+            width:50px;
+            height:50px;
+            padding:1px;
+            border:1px solid black;
+            margin:1px;
+            float:left;
+            /* Appearance properties */
+            text-align:center;
+            font:40px sans-serif;
+        }
+    </style>
+    
+    <!-- JQuery  -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    
+    <!-- JQuery functions and variables -->
+    <script>
 
-		var trisGrid = new Array();
-		var combinationsOfThreeBoxes = [ [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6] ];
-		
-		// General functions, used outside to: start, reset the game and playing it
-		
-		function computerEngine() {
-			var almostTrisByComputer = getAnAlmostTris(computerName), almostTrisByUser = getAnAlmostTris(userName);
-			// IF there's an ALMOST_TRIS by the C
-				// C fill the free box
-			if (almostTrisByComputer[0] == true)
-				fillABox(computerName,almostTrisByComputer[1],"box"+almostTrisByComputer[1]);
-			// ELSE IF there's an ALMOST_TRIS by the U
-				// C fill the free box
-			else if (almostTrisByUser[0] == true) {
-				fillABox(computerName,almostTrisByUser[1],"box"+almostTrisByUser[1]);
-			}
-			// ELSE IF there's an ALMOST_BIS by the C
-			
-				// C fill one of the two free boxes
-			// Else
-				// C chooses a casual box to be filled
-			else {
-				for (var i = 0; i < 9; i++) {
-					if (trisGrid[i] === undefined) {
-						fillABox(computerName,i,"box"+i);
-						i = 9;
-					}
-				}
-			}
-		}
+        var endGame = false;
+        var userName = "user", computerName = "PC";
+        var charToken = [];
+        charToken[userName] = "X";
+        charToken[computerName] = "0";
 
-		function checkTris(name) {
-			var token = charToken[name];
-			for (var i = 0; i<combinationsOfThreeBoxes.length; i++) {
-				if (trisGrid[combinationsOfThreeBoxes[i][0]] == token && trisGrid[combinationsOfThreeBoxes[i][1]] == token && trisGrid[combinationsOfThreeBoxes[i][2]] == token) {
-					endGame = true;
-					alert(name + " win");
-					return true;
-				}
-			}
-		}
-		function fillABox(name,boxIndex,boxIndexString) {
-			if (trisGrid[boxIndex] == undefined) {
-				var token = charToken[name];
-				$("div > ." + boxIndexString).html(token);
-				trisGrid[boxIndex] = token;
-				return true;
-			}
-			else
-				return false;
-		}
-		function resetGame() {
-			$("div[class^='box']").text("");
-			endGame = false;
-			trisGrid = [];
-		}
+        var trisGrid = new Array();
+        var combinationsOfThreeBoxes = [ [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6] ];
 
-		// Specific functions, that are Helping for General Functions above
+        // General functions, used outside to: start, reset the game and playing it
 
-		/*
-			
-		*/
-		function getAnAlmostTris(playerName) {
-			// For each combination of three boxes
-			for (var i = 0; i < combinationsOfThreeBoxes.length; i++) {
-				// IF it is an AlmostTris
-				var almostTris = isAnAlmostTris(combinationsOfThreeBoxes[i],playerName);
-				if (almostTris[0] == true) {
-					// Return
-					almostTris[1] = combinationsOfThreeBoxes[i][almostTris[1]];
-					return almostTris;
-				}
-			}
-			return [false, undefined];
-		}
-		
-		/*
-		
-		*/
-		function isAnAlmostTris(combinationOfThreeBoxes,playerName) {
-			// IF box1 and box2 are filled and box3 is empty
-			// 	Return true and index as 3
-			var token = charToken[playerName];
-			if (trisGrid[combinationOfThreeBoxes[0]] === token && trisGrid[combinationOfThreeBoxes[1]] === token && trisGrid[combinationOfThreeBoxes[2]] === undefined)
-				return [true, 2];
-			// IF box1 and box3 are filled and box2 is empty
-			// 	Return true and index as 2
-			if (trisGrid[combinationOfThreeBoxes[0]] === token && trisGrid[combinationOfThreeBoxes[2]] === token && trisGrid[combinationOfThreeBoxes[1]] === undefined)
-				return [true, 1];
-			// IF box2 and box3 are filled and box1 is empty
-			// 	Return true and index as 1
-			if (trisGrid[combinationOfThreeBoxes[1]] === token && trisGrid[combinationOfThreeBoxes[2]] === token && trisGrid[combinationOfThreeBoxes[0]] === undefined)
-				return [true, 0];
-			// ELSE
-			//  Return false
-			else
-				return [false, undefined];
-		}
+        function computerEngine() {
+            var almostTrisByComputer = getAnAlmostTris(computerName), almostTrisByUser = getAnAlmostTris(userName);
+            // IF there's an ALMOST_TRIS by the C
+                // C fill the free box
+            if (almostTrisByComputer[0] == true)
+                fillABox(computerName,almostTrisByComputer[1],"box"+almostTrisByComputer[1]);
+            // ELSE IF there's an ALMOST_TRIS by the U
+                // C fill the free box
+            else if (almostTrisByUser[0] == true) {
+                fillABox(computerName,almostTrisByUser[1],"box"+almostTrisByUser[1]);
+            }
+            // ELSE IF there's an ALMOST_BIS by the C
 
-		function getAnAlmostBis(playerName) {
-			// FOR each combination of three boxes
-				// IF it is an almostBis
-					// Return the indexes of the other two free boxes
-		}
+                // C fill one of the two free boxes
+            // Else
+                // C chooses a casual box to be filled
+            else {
+                for (var i = 0; i < 9; i++) {
+                    if (trisGrid[i] === undefined) {
+                        fillABox(computerName,i,"box"+i);
+                        i = 9;
+                    }
+                }
+            }
+        }
 
-		function isAnAlmostBis(combinationOfThreeBoxes,playerName) {
-			// IF box1 is filled and the other two are free
-				// Return true and index as 0
-			// IF box2 is filled and the other two are free
-				// Return true and index as 1
-			// IF box3 is filled and the other two are free
-				// Return true and index as 2
-			// ELSE
-				// Return false and index as undefined
-		}
-	</script>
-	<!-- JQuery TRIS ENGINE -->
-	<script>
-		$(document).ready(function(){
-			$("div.trisgrid > div").click(function(){
-				if (endGame == false) {
-					var boxIndexString = $(this).attr("class");
-					var boxIndex = boxIndexString[3];
-					if (fillABox(userName,boxIndex,boxIndexString)) {
-						if (!checkTris(userName)) {
-							computerEngine();
-							checkTris(computerName);
-						}
-					}
-				}
-			});
+        function checkTris(name) {
+            var token = charToken[name];
+            for (var i = 0; i<combinationsOfThreeBoxes.length; i++) {
+                if (trisGrid[combinationsOfThreeBoxes[i][0]] == token && trisGrid[combinationsOfThreeBoxes[i][1]] == token && trisGrid[combinationsOfThreeBoxes[i][2]] == token) {
+                    endGame = true;
+                    alert(name + " win");
+                    return true;
+                }
+            }
+        }
+        function fillABox(name,boxIndex,boxIndexString) {
+            if (trisGrid[boxIndex] == undefined) {
+                var token = charToken[name];
+                $("div > ." + boxIndexString).html(token);
+                trisGrid[boxIndex] = token;
+                return true;
+            }
+            else
+                return false;
+        }
+        function resetGame() {
+            $("div[class^='box']").text("");
+            endGame = false;
+            trisGrid = [];
+        }
 
-			$("#pctoken").on("change", function() {
-				charToken[userName] = $(this).val();
-			});
-		});
-	</script>
+        // Specific functions, that are Helping for General Functions above
+
+        /*
+
+        */
+        function getAnAlmostTris(playerName) {
+            // For each combination of three boxes
+            for (var i = 0; i < combinationsOfThreeBoxes.length; i++) {
+                // IF it is an AlmostTris
+                var almostTris = isAnAlmostTris(combinationsOfThreeBoxes[i],playerName);
+                if (almostTris[0] == true) {
+                    // Return
+                    almostTris[1] = combinationsOfThreeBoxes[i][almostTris[1]];
+                    return almostTris;
+                }
+            }
+            return [false, undefined];
+        }
+
+        /*
+
+        */
+        function isAnAlmostTris(combinationOfThreeBoxes,playerName) {
+            // IF box1 and box2 are filled and box3 is empty
+            // 	Return true and index as 3
+            var token = charToken[playerName];
+            if (trisGrid[combinationOfThreeBoxes[0]] === token && trisGrid[combinationOfThreeBoxes[1]] === token && trisGrid[combinationOfThreeBoxes[2]] === undefined)
+                return [true, 2];
+            // IF box1 and box3 are filled and box2 is empty
+            // 	Return true and index as 2
+            if (trisGrid[combinationOfThreeBoxes[0]] === token && trisGrid[combinationOfThreeBoxes[2]] === token && trisGrid[combinationOfThreeBoxes[1]] === undefined)
+                return [true, 1];
+            // IF box2 and box3 are filled and box1 is empty
+            // 	Return true and index as 1
+            if (trisGrid[combinationOfThreeBoxes[1]] === token && trisGrid[combinationOfThreeBoxes[2]] === token && trisGrid[combinationOfThreeBoxes[0]] === undefined)
+                return [true, 0];
+            // ELSE
+            //  Return false
+            else
+                return [false, undefined];
+        }
+
+        function getAnAlmostBis(playerName) {
+            // FOR each combination of three boxes
+                // IF it is an almostBis
+                    // Return the indexes of the other two free boxes
+        }
+
+        function isAnAlmostBis(combinationOfThreeBoxes,playerName) {
+            // IF box1 is filled and the other two are free
+                    // Return true and index as 0
+            // IF box2 is filled and the other two are free
+                    // Return true and index as 1
+            // IF box3 is filled and the other two are free
+                    // Return true and index as 2
+            // ELSE
+                    // Return false and index as undefined
+        }
+    </script>
+    <!-- JQuery TRIS ENGINE -->
+    <script>
+        $(document).ready(function(){
+            $("div.trisgrid > div").click(function(){
+                if (endGame == false) {
+                    var boxIndexString = $(this).attr("class");
+                    var boxIndex = boxIndexString[3];
+                    if (fillABox(userName,boxIndex,boxIndexString)) {
+                        if (!checkTris(userName)) {
+                            computerEngine();
+                            checkTris(computerName);
+                        }
+                    }
+                }
+            });
+
+            $("#pctoken").on("change", function() {
+                charToken[userName] = $(this).val();
+            });
+        });
+    </script>
 </head>
 <body>
-	<div>
-		<table>
-			<tr>
-				<td>User token</td>
-				<td><input type="text" id="utoken" maxlength="1" value="X" /></td>
-			</tr>
-			<tr>
-				<td>PC token</td>
-				<td><input type="text" id="pctoken" maxlength="1" value="O" /></td>
-			</tr>
-		</table>
-	</div>
-	<div class="trisgrid">
-		<div class="box0"></div>
-		<div class="box1"></div>
-		<div class="box2"></div>
-		<div class="box3"></div>
-		<div class="box4"></div>
-		<div class="box5"></div>
-		<div class="box6"></div>
-		<div class="box7"></div>
-		<div class="box8"></div>
-	</div>
-	<a href="javascript:void(0);" onclick="javascript:resetGame();">New Game</a>
+    
+<div>
+    <table>
+        <tr>
+            <td>User token</td>
+            <td><input type="text" id="utoken" maxlength="1" value="X" /></td>
+        </tr>
+        <tr>
+            <td>PC token</td>
+            <td><input type="text" id="pctoken" maxlength="1" value="O" /></td>
+        </tr>
+    </table>
+</div>
+    
+<div class="trisgrid">
+    <div class="box0"></div>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+    <div class="box5"></div>
+    <div class="box6"></div>
+    <div class="box7"></div>
+    <div class="box8"></div>
+</div>
+    
+<a href="javascript:void(0);" onclick="javascript:resetGame();">New Game</a>
+
 </body>
 
 </html>
