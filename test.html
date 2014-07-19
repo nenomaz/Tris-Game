@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>Test Page</title>
+</head>
+<body>
+	
+	<p id="one">
+		
+	</p>
+
+	<p id="two">
+		
+	</p>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="trisgameOOP.js"></script>
+	<script>
+		var a = [  true,  [ [0,2], [1,2], [2,2] ]  ];
+		alert(a[0] + "\n" + a[1][0][0] + a[1][0][1] + "\n" + a[1][1][0] + a[1][1][1] + "\n" + a[1][2][0] + a[1][2][1]);
+
+		// Test functions
+		
+		function showGridIntoAlert(grid) {
+			var output = "";
+			for (var r = 0; r < grid.length; r++) {
+				for (var c = 0; c < grid[r].length; c++) {
+					output += grid[r][c];
+				}
+				output += "\n";
+			}
+			alert(output);
+		}
+		
+		function showGridIntoParagraph(grid,idParagraph) {
+			var output = "";
+			for (var r = 0; r < grid.length; r++) {
+				for (var c = 0; c < grid[r].length; c++) {
+					output += grid[r][c];
+				}
+				output += "<br>";
+			}
+			$("#" + idParagraph).html(output);
+		}
+	</script>
+
+</body>
+</html>

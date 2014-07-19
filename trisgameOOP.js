@@ -46,9 +46,9 @@ function trisMatch(userToken,computerToken,emptyToken) {
 	if (emptyToken === undefined)
 		emptyToken = " ";
 	this.tokens = { user:userToken, computer:computerToken, empty:emptyToken };
-	this.grid = [ [tokens.empty, tokens.empty, tokens.empty], [tokens.empty, tokens.empty, tokens.empty], [tokens.empty, tokens.empty, tokens.empty] ];
+	this.grid = [ [this.tokens.empty, this.tokens.empty, this.tokens.empty], [this.tokens.empty, this.tokens.empty, this.tokens.empty], [this.tokens.empty, this.tokens.empty, this.tokens.empty] ];
 	
-	this.combinationsOfThreeBoxes;
+	this.combinationsOfThreeBoxes = undefined;
 	this.endGame = false;
 
 	// PUBLIC INTERFACE
@@ -67,15 +67,44 @@ function trisMatch(userToken,computerToken,emptyToken) {
 		@param x is the x coordinate of the box
 		@param y is the y coordinate of the box
 		@param playerName is the name of the player wanting to fill that box, so that his token will be got from tokens object
-		@return
+		@pre-conditions:
+			params x and y must be numbers comprised into the "grid" range, else returned value will be false
+			param playerToken must be equal to tokens.user or tokens.computer of the "tokens" object field
+			box to be filled must be free, therefore it should contains the token "tokens.empty"
+		@return boolean
 			true IF the box has been filled, because it was empty
 			false IF it hasn't been filled, therefore it is busy
 	*/
-	this.fillABox = function(x,y,playerName) {
-		
+	this.fillABox = function(x,y,playerToken) {
+		// First Pre-Conditions
+		if (typeof x === "number" && typeof y === "number" && (playerToken === this.tokens.user || playerToken === this.tokens.computer)) {
+			// Consecutive Pre-Conditions
+			if (x < 3 && x >= 0 && y < 3 && y >= 0) {
+				if (this.grid[x][y] == this.tokens.empty)
+				{
+					this.grid[x][y] = playerToken;
+					return true;
+				}
+				else
+					return false;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
 	}
 
-	this.checkTris = function(playerName) {
+	/*
+		Check if in the grid there is a tris done by one of the players
+		@param playerToken is the token of the player of which will be checked the tris
+		@pre-conditions
+			param playerToken must be equal to tokens.user or tokens.computer
+		@return [  boolean,  [ [], [], [] ]  ]
+			[true, combination_of_three_boxes_that_contains_the_tris] IF there is a tris with playerToken
+			[false, undefined] IF there is no tris with playerToken
+	*/
+	this.checkTris = function(playerToken) {
 		
 	}
 
@@ -102,4 +131,9 @@ function trisMatch(userToken,computerToken,emptyToken) {
 		// ELSE
 			// Return false
 	}
+}
+
+function trisMatchTest(userToken,computerToken,emptyToken) {
+	
+	
 }
