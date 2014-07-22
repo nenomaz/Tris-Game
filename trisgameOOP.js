@@ -41,7 +41,7 @@
 
 */
 
-function trisMatch(userToken,computerToken,emptyToken) {
+function TrisMatch(userToken,computerToken,emptyToken) {
 	
     if (emptyToken === undefined)
         emptyToken = " ";
@@ -70,14 +70,14 @@ function trisMatch(userToken,computerToken,emptyToken) {
         @pre-conditions:
             params x and y must be numbers comprised into the "grid" range, else returned value will be false
             param playerToken must be equal to tokens.user or tokens.computer of the "tokens" object field
-            box to be filled must be free, therefore it should contains the token "tokens.empty"
+            box to be filled must be free, therefore it must contains the token "tokens.empty"
         @return boolean
             true IF the box has been filled, because it was empty
             false IF it hasn't been filled, therefore it is busy
     */
     this.fillABox = function(x,y,playerToken) {
         // First Pre-Conditions
-        if (typeof x === "number" && typeof y === "number" && (playerToken === this.tokens.user || playerToken === this.tokens.computer)) {
+        if (typeof x === "number" && typeof y === "number" && (playerToken == this.tokens.user || playerToken == this.tokens.computer)) {
             // Consecutive Pre-Conditions
             if (x < 3 && x >= 0 && y < 3 && y >= 0) {
                 if (this.grid[x][y] == this.tokens.empty)
@@ -97,7 +97,7 @@ function trisMatch(userToken,computerToken,emptyToken) {
 
     /*
         Check if in the grid there is a tris done by one of the players
-        @param playerToken is the token of the player of which will be checked the tris
+        @param playerToken is the token of the player of which is being checked the tris
         @pre-conditions
             param playerToken must be equal to tokens.user or tokens.computer
         @return [  boolean,  [ [], [], [] ]  ]
@@ -105,7 +105,27 @@ function trisMatch(userToken,computerToken,emptyToken) {
             [false, undefined] IF there is no tris with playerToken
     */
     this.checkTris = function(playerToken) {
-        // 
+        // Pre-Conditions
+        if (playerToken === this.tokens.user || playerToken === this.tokens.computer) {
+            // FOR each combination of three boxes in the grid (all combinations are in instance field "combinationsOfThreeBoxes")
+            for (var combination = 0; combination < this.combinationsOfThreeBoxes.length; combination++) {
+                // Preparation of boxes' coordinates variables
+                var box_one_x, box_one_y, box_two_x, box_two_y, box_three_x, box_three_y;
+                box_one_x = this.combinationsOfThreeBoxes[combination][0][0];
+                box_one_y = this.combinationsOfThreeBoxes[combination][0][1];
+                box_two_x = this.combinationsOfThreeBoxes[combination][1][0];
+                box_two_y = this.combinationsOfThreeBoxes[combination][1][1];
+                box_three_x = this.combinationsOfThreeBoxes[combination][2][0];
+                box_three_y = this.combinationsOfThreeBoxes[combination][2][1];
+                // IF box_one, box_two and box_three are filled with playerToken
+                if (this.grid[box_one_x][box_one_y] === playerToken)
+                    return [ true, this.combinationsOfThreeBoxes[combination] ];
+            }
+            // IF no tris has been performed, flow of statements reaches up to here, otherwise it has finished returning true with the combination of tris
+            return [ false, undefined ];
+        }
+        else
+            return [ false, undefined ];
     }
 
     this.computerAction = function() {

@@ -3,21 +3,30 @@
     <title>Test Page</title>
 </head>
 <body>
+    
+    <div>
+        <input type="text" id="x" size="1">
+        <input type="text" id="y" size="1">
+        <button id="fill">Fill</button>
+    </div>
 	
     <p id="one">
-
-    </p>
-
-    <p id="two">
 
     </p>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="trisgameOOP.js"></script>
     <script>
-        var a = [  true,  [ [0,2], [1,2], [2,2] ]  ];
-        alert(a[0] + "\n" + a[1][0][0] + a[1][0][1] + "\n" + a[1][1][0] + a[1][1][1] + "\n" + a[1][2][0] + a[1][2][1]);
-
+        var trisMatch = new TrisMatch("X","O","E");
+        showGridIntoParagraph(trisMatch.grid,"one");
+        
+        $("#fill").click(function() {
+            var x = $("#x").val(), y = $("#y").val();
+            var isFilled = trisMatch.fillABox(x,y,"X");
+            if (isFilled !== true)
+                alert("Coordinates are outside of grid range!");
+        });
+        
         // Test functions
 
         function showGridIntoAlert(grid) {
