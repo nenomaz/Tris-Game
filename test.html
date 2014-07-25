@@ -21,10 +21,20 @@
         showGridIntoParagraph(trisMatch.grid,"one");
         
         $("#fill").click(function() {
-            var x = $("#x").val(), y = $("#y").val();
+            var x = + $("#x").val(), y = + $("#y").val();
             var isFilled = trisMatch.fillABox(x,y,"X");
             if (isFilled !== true)
                 alert("Coordinates are outside of grid range!");
+            else {
+                showGridIntoParagraph(trisMatch.grid,"one");
+                var performedTris = trisMatch.checkTris("X");
+                if (performedTris[0] == true)
+                    alert("Tris Performed");
+                else {
+                    trisMatch.computerAction();
+                    showGridIntoParagraph(trisMatch.grid,"one");
+                }
+            }
         });
         
         // Test functions
