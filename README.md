@@ -3,24 +3,26 @@ TRIS GAME
 
 This document first explains in what the game consists of, next illustrates the implementation through Web Technologies.
 
-### WHAT DOES THE GAME CONSIST OF?
+### The Game
 
-Tris is a game when two players play against each other. In this case, one player is the computer engine.
-The game consists of a three cols and three rows grid, in which each player ticks with own token an empty box with the aim of realize a tris combination.
+Tris is a game with two players.
+The game consists of a three cols and three rows grid, in which each player ticks with his *token* an empty box with the aim of realize a *tris combination*.
 A tris combination is formed by three boxes filled by the same token, they must be adjacent horizontally, vertically or diagonally.
 For example (e indicates empty boxes):
-
-    xxx xoe eex
-    ooe xee exo
-    eee xeo xoo
+	
+    xxx xo- --x
+    oo- x-- -xo
+    --- x-o xoo
 
 Above, the player owning the "x" token has performed a tris in every grid!
 
-IMPLEMENTATION THROUGH:
+### Technologies used for implementation:
 
 * Html5
 * CSS
 * Javascript/JQuery
+
+### The Algorithm
 
 The user owns the "X" Token, the computer engine the "O" token.
 
@@ -30,7 +32,7 @@ The user owns the "X" Token, the computer engine the "O" token.
 
 ONE MIND: during the engine elaboration the other boxes events mustn't be on, otherwise will be returned an unexpected result.
 
-### THE COMPUTER ENGINE METHOD-ALGORITHM
+##### THE COMPUTER ENGINE METHOD-ALGORITHM
 
 This method should contain an algorithm that studies the tris grid situation and react returning the index of the box to be filled. Here is a minimal example in natural language:
 - The computer, if can, performs a tris;
@@ -40,18 +42,11 @@ This method should contain an algorithm that studies the tris grid situation and
 
 But for now the method will return a casual box to be filled.
 
-### ACTUAL STATE
+### ROADMAP
 
-* The computer engine algorithm implementation is almost complete!
-* Documentation must be completed
-* A complete test must be done
+* Complete the setting token functionality for user and computer
+* The computer engine algorithm implementation isn't complete!
 * Code must be converted in OOP (Object Oriented Paradigm)
-
-### NEW TARGETS TO REACH
-
-- Add the possibility to choose the token for the user and for the computer
-- Add the button to restart/reset the game
-- To allow multiple tris grids on the page, thus multiple tris round-games, just convert the code to OOP, so for each game/round there will be a properly object instance.
-- Each user can play with a name and an e-mail to race with any others, his score will be stored in a ScoreTable!
-- It would be cool if it's possible to play with another user from another pc or with the same pc playing in turn!
-
+* After OOP style reached
+* To allow multiple tris grids on the page, thus multiple tris round-games, just convert the code to OOP, so for each game/round there will be a properly object instance.
+* It would be cool if it's possible to play with another user from another pc or with the same pc playing in turn!
